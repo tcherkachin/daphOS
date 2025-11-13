@@ -241,6 +241,7 @@ function SidebarContent({
                           <span className="text-xs">{initials}</span>
                         </div>
                       ),
+                      subtitle: employee.role,
                     }}
                     onClick={() => onSelectEmployee(employee.id)}
                     className={cn(

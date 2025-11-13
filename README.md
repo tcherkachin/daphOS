@@ -34,22 +34,20 @@ The application is built with React, TypeScript, TailwindCSS, ShadCN/Radix UI, a
 - Responsive layout
 - Dark/Light mode toggle
 - Smooth sidebar animations
-- Modern UI components (Radix/ShadCN)
+- Modern UI components (Radix/ShadC N)
 
 ## 🚀 Setup & Running the App
 
-```bash
 npm install
 npm run dev
-```
+
 
 The dev server usually runs at http://localhost:5173/.
 
 Build for production:
 
-```bash
 npm run build
-```
+
 
 ## 📌 Implementation Overview (Feature → File Mapping)
 
@@ -105,4 +103,4 @@ To switch to an API:
 - No tests (time-boxed)
 
 ## 📬 Notes
-This project was intentionally built within the 4–5 hour timebox of the DaphOS challenge, focusing on UX quality, clean structure, clean state handling, and a maintainable architecture prepared for future API integration.
+This project was intentionally built within the 4–5 hour timebox of the DaphOS challenge, focusing on UX quality, clear structure, clean state handling, and a maintainable architecture prepared for future API integration.

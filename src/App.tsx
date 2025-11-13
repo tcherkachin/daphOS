@@ -4,6 +4,7 @@ import { EmployeeDetails } from './components/EmployeeDetails';
 import { Toaster } from './components/ui/sonner';
 import { toast } from 'sonner@2.0.3';
 import { cn } from './components/ui/utils';
+import { loadEmployees, saveEmployees, loadShifts, saveShifts } from './src/storage/localStorage';
 
 export interface Employee {
   id: string;
@@ -95,8 +96,8 @@ const initialShifts: Shift[] = [
 ];
 
 export default function App() {
-  const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
-  const [shifts, setShifts] = useState<Shift[]>(initialShifts);
+  const [employees, setEmployees] = useState<Employee[]>(() => loadEmployees(initialEmployees));
+  const [shifts, setShifts] = useState<Shift[]>(() => loadShifts(initialShifts));
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<string | null>('1');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -108,6 +109,16 @@ export default function App() {
       document.documentElement.classList.remove('dark');
     }
   }, [isDarkMode]);
+
+  // Persist employees to localStorage when they change
+  useEffect(() => {
+    saveEmployees(employees);
+  }, [employees]);
+
+  // Persist shifts to localStorage when they change
+  useEffect(() => {
+    saveShifts(shifts);
+  }, [shifts]);
 
   const selectedEmployee = employees.find(e => e.id === selectedEmployeeId);
 

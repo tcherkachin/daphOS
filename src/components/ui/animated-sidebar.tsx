@@ -7,6 +7,7 @@ interface Links {
   label: string;
   href: string;
   icon: React.JSX.Element | React.ReactNode;
+  subtitle?: string;
 }
 
 interface SidebarContextProps {
@@ -182,15 +183,22 @@ export const SidebarLink = ({
       {...props}
     >
       {link.icon}
-      <motion.span
+      <motion.div
         animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          display: animate ? (open ? "flex" : "none") : "flex",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="flex flex-col group-hover/sidebar:translate-x-1 transition duration-150 !p-0 !m-0"
       >
-        {link.label}
-      </motion.span>
+        <span className="text-neutral-700 dark:text-neutral-200 text-sm whitespace-pre inline-block">
+          {link.label}
+        </span>
+        {link.subtitle && (
+          <span className="text-neutral-500 dark:text-neutral-400 text-xs whitespace-pre inline-block">
+            {link.subtitle}
+          </span>
+        )}
+      </motion.div>
     </button>
   );
 };
