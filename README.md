@@ -9,44 +9,44 @@ The application is built with React, TypeScript, TailwindCSS, ShadCN/Radix UI, a
 ### Employee Management
 - List all employees (name, role, active/inactive)
 - Create new employees
-- Edit employee name & role
+- Edit employee name and role
 - Activate / deactivate employees
-- Search, filter (active/inactive), and sort by name/role
-- Master–detail UX layout (list on the left, details on the right)
+- Search, filter (active/inactive), and sort by name or role
+- Master–detail UX layout (sidebar left, details right)
 
 ### Shift Management
-- List shifts per employee
-- Add, edit, delete shifts
+- Shifts per employee
+- Add, edit and delete shifts
 - Validation: End time must be after start time
-- Alert messages for invalid shift ranges
-- Toast notifications for success actions
+- Alert messages for invalid ranges
+- Toast notifications for successful actions
 
 ### Visualizations
-- Bar chart: Hours worked per day
-- Employee dashboard with weekly & total hours
+- Bar chart: hours worked per day
+- Employee dashboard with KPIs (total hours, weekly hours, etc.)
 
 ### Data Persistence
-- All employees and shifts stored in LocalStorage
-- Data survives page reloads
-- Safe fallback behavior on first load
+- Stored entirely in LocalStorage
+- Values persist across reloads
+- Safe fallback loading
 
 ### UI/UX
 - Responsive layout
 - Dark/Light mode toggle
-- Smooth sidebar animations
-- Modern UI components (Radix/ShadC N)
+- Animated sidebar
+- Modern UI components (Radix/ShadCN)
 
 ## 🚀 Setup & Running the App
 
-npm install
-npm run dev
+Install dependencies:
+
+    npm install
+
+Start development server:
+
+    npm run dev
 
 
-The dev server usually runs at http://localhost:5173/.
-
-Build for production:
-
-npm run build
 
 
 ## 📌 Implementation Overview (Feature → File Mapping)
@@ -75,32 +75,47 @@ npm run build
 ## 🧱 Architecture Overview
 
 ### UI Layer
-- Primary application state in src/App.tsx  
-- Components under src/components/ handle presentation and user interaction
+- Central application state and handlers: src/App.tsx
+- UI logic and presentation in src/components/
 
 ### Storage Layer (LocalStorage)
-- Implemented in src/src/storage/localStorage.ts  
-- loadEmployees / loadShifts load data with fallback  
-- saveEmployees / saveShifts persist changes safely  
+- Implemented in src/src/storage/localStorage.ts
+- loadEmployees / loadShifts — read from LocalStorage with fallback
+- saveEmployees / saveShifts — persist changes on state updates
+- All persistence is isolated in this file
 
 ### Domain Model
-- Employee and Shift interfaces defined in App.tsx  
-- Shared across UI and storage  
-- Can be moved to domain/types.ts for a future API
+- Employee and Shift interfaces defined in App.tsx
+- Used consistently by UI and persistence
+- Can be moved to domain/types.ts in future expansions
 
-### API-Ready Design
-The application separates UI concerns from data access.  
-To switch to an API:
-1. Replace load/save functions with fetch-based API calls  
-2. Add loading/error states  
-3. Keep all components unchanged (they consume state only)
+## 🌐 API-Ready Design (Where API Integration Would Happen)
+
+The app is structured so that replacing the data source is simple:
+
+1. The **entire data access layer lives in one place**:  
+   src/src/storage/localStorage.ts  
+   This file is responsible for all loading and saving of data.
+
+2. To switch to a real backend API, replace the LocalStorage functions with:  
+   fetch('/api/employees') or axios.get('/api/shifts') etc.
+
+3. The UI does not need to change.  
+   App.tsx will still call loadEmployees() and loadShifts(), but those functions would now call the backend.
+
+4. Only minor additions would be required:  
+   - loading states  
+   - error handling  
+   - authentication (if needed)
+
+This ensures a clean separation of concerns and a simple path to scaling the application with a proper backend.
 
 ## 📄 Non-Goals (per challenge instructions)
-- No backend  
-- No authentication  
-- No routing  
-- No advanced state managers (Redux/Zustand)  
+- No backend
+- No authentication
+- No routing
+- No advanced state managers
 - No tests (time-boxed)
 
 ## 📬 Notes
-This project was intentionally built within the 4–5 hour timebox of the DaphOS challenge, focusing on UX quality, clear structure, clean state handling, and a maintainable architecture prepared for future API integration.
+This project was developed in the 4–5 hour timebox of the DaphOS challenge with focus on UX, clarity, and maintainable architecture that can grow into a fully API-driven system.
